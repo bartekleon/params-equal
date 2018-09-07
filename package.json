@@ -1,0 +1,36 @@
+{
+  "name": "params-equal",
+  "version": "1.0.0",
+  "description": "Checks if two elements are really equal",
+  "main": "src/paramsEqual.js",
+  "scripts": {
+    "benchmark": "ts-node benchmark.ts",
+    "test": "npm run build && nyc jasmine-ts ./src/**/*.spec.ts",
+    "prebuild": "rimraf \"src/**/*+(.d.ts|.js|.map)\" coverage",
+    "build": "tsc -p ."
+  },
+  "devDependencies": {
+    "@types/benchmark": "^1.0.31",
+    "@types/jasmine": "^2.8.8",
+    "@types/node": "^10.9.4",
+    "benchmark": "^2.1.4",
+    "istanbul": "^0.4.5",
+    "jasmine": "^3.2.0",
+    "jasmine-ts": "^0.2.1",
+    "nyc": "^13.0.1",
+    "rimraf": "^2.6.2",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.3"
+  },
+  "dependencies": {
+    "param-type": "^1.1.0"
+  },
+  "author": "kmdrGroch",
+  "license": "MIT",
+  "nyc": {
+    "reporter": [
+      "lcov"
+    ]
+  }
+}
