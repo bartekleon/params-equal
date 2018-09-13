@@ -1,6 +1,6 @@
 import paramType from "param-type";
 
-const toString = Object.toString;
+const toString: () => string = Object.prototype.toString;
 
 /**
  * @name paramsEqual
