@@ -29,6 +29,8 @@ paramsEqual(2, 2) //=> true
 
 paramsEqual(2, 4) //=> false
 
+paramsEqual(2, "4") //=> false
+
 paramsEqual(/a/g, /a/g) //=> true
 
 paramsEqual(/a/g, /a/u) //=> false
@@ -36,6 +38,12 @@ paramsEqual(/a/g, /a/u) //=> false
 paramsEqual(/b/g, /a/g) //=> false
 
 paramsEqual(/a/g, new RegExp('a', 'g')) //=> true
+
+paramsEqual(Symbol(12), Symbol(12)) //=> true
+
+paramsEqual(Symbol(12), Symbol("12")) //=> true
+
+paramsEqual(Symbol(12), Symbol(6)) //=> false
 
 paramsEqual(new Boolean(true), new Boolean(true)) //=> true
 

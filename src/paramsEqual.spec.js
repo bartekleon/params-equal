@@ -29,12 +29,18 @@ describe("paramsEqual", () => {
     it("should work for numbers", () => {
         expect(paramsEqual_1.default(2, 2)).toBeTruthy();
         expect(paramsEqual_1.default(2, 4)).toBeFalsy();
+        expect(paramsEqual_1.default(2, "4")).toBeFalsy();
     });
     it("should work for regexp", () => {
         expect(paramsEqual_1.default(/a/g, /a/g)).toBeTruthy();
         expect(paramsEqual_1.default(/a/u, /a/g)).toBeFalsy();
         expect(paramsEqual_1.default(/b/g, /a/g)).toBeFalsy();
         expect(paramsEqual_1.default(/a/g, new RegExp('a', 'g'))).toBeTruthy();
+    });
+    it("should work for symbols", () => {
+        expect(paramsEqual_1.default(Symbol(12), Symbol(12))).toBeTruthy();
+        expect(paramsEqual_1.default(Symbol(12), Symbol("12"))).toBeTruthy();
+        expect(paramsEqual_1.default(Symbol(12), Symbol(6))).toBeFalsy();
     });
     it("should work for `new` elements", () => {
         expect(paramsEqual_1.default(new Boolean(true), new Boolean(true))).toBeTruthy();
@@ -61,7 +67,7 @@ describe("paramsEqual", () => {
         }, function () { })).toBeFalsy();
     });
     it("should work for dates", () => {
-        const time1 = new Date();
+        const time1 = new Date(20532795);
         const time2 = new Date(12543745);
         expect(paramsEqual_1.default(time1, time1)).toBeTruthy();
         expect(paramsEqual_1.default(time1, time2)).toBeFalsy();

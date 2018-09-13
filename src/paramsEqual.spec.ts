@@ -24,6 +24,7 @@ describe("paramsEqual", () => {
   it("should work for numbers", () => {
     expect(paramsEqual(2, 2)).toBeTruthy();
     expect(paramsEqual(2, 4)).toBeFalsy();
+    expect(paramsEqual(2, "4")).toBeFalsy();
   });
 
   it("should work for regexp", () => {
@@ -31,6 +32,12 @@ describe("paramsEqual", () => {
     expect(paramsEqual(/a/u, /a/g)).toBeFalsy();
     expect(paramsEqual(/b/g, /a/g)).toBeFalsy();
     expect(paramsEqual(/a/g, new RegExp('a', 'g'))).toBeTruthy();
+  });
+
+  it("should work for symbols", () => {
+    expect(paramsEqual(Symbol(12), Symbol(12))).toBeTruthy();
+    expect(paramsEqual(Symbol(12), Symbol("12"))).toBeTruthy();
+    expect(paramsEqual(Symbol(12), Symbol(6))).toBeFalsy();
   });
 
   it("should work for `new` elements", () => {
@@ -62,7 +69,7 @@ describe("paramsEqual", () => {
   });
 
   it("should work for dates", () => {
-    const time1 = new Date();
+    const time1 = new Date(20532795);
     const time2 = new Date(12543745);
     expect(paramsEqual(time1, time1)).toBeTruthy();
     expect(paramsEqual(time1, time2)).toBeFalsy();
