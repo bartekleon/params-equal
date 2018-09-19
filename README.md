@@ -1,5 +1,8 @@
 # param-type [![NPM version](https://img.shields.io/npm/v/params-equal.svg?style=flat)](https://www.npmjs.com/package/params-equal)
 
+Is function() {} = function() {}? Or {} = {}? "hello" = new String("hello")?
+Now they are. **params-equal** checks if two given parameters are equal and works for cases, other programs do not check. Optimalised to be **as fast as it is possible** and **tested** to work as intended.
+
 ## Install
 
 Install with [npm](https://www.npmjs.com/):
