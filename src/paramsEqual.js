@@ -15,7 +15,9 @@ function paramsEqual(a, b) {
     if (param_type_1.default(a) !== param_type_1.default(b))
         return false;
     /* Check primitives and object-primitives */
-    if (["boolean", "string", "number", "date", "regexp", "symbol"].indexOf(param_type_1.default(a)) > -1)
+    if (typeof a === "number")
+        return Object.is(a, b);
+    if (["boolean", "string", "date", "regexp", "symbol"].indexOf(param_type_1.default(a)) > -1)
         return String(a) === String(b);
     /* Check functions */
     if (typeof a === "function")

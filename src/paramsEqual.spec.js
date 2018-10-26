@@ -14,6 +14,7 @@ const paramsEqual_1 = require("./paramsEqual");
 describe("paramsEqual", () => {
     it("should work for NaN", () => {
         expect(paramsEqual_1.default(NaN, NaN)).toBeTruthy();
+        expect(paramsEqual_1.default(NaN, 0 / 0)).toBeTruthy();
     });
     it("should work for null", () => {
         expect(paramsEqual_1.default(null, null)).toBeTruthy();
@@ -28,6 +29,10 @@ describe("paramsEqual", () => {
     });
     it("should work for numbers", () => {
         expect(paramsEqual_1.default(2, 2)).toBeTruthy();
+        expect(paramsEqual_1.default(-0, +0)).toBeFalsy();
+        expect(paramsEqual_1.default(Infinity, Infinity)).toBeTruthy();
+        expect(paramsEqual_1.default(Infinity, 1 / 0)).toBeTruthy();
+        expect(paramsEqual_1.default(-0, -0)).toBeTruthy();
         expect(paramsEqual_1.default(2, 4)).toBeFalsy();
         expect(paramsEqual_1.default(2, "4")).toBeFalsy();
     });

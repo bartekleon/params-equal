@@ -18,6 +18,8 @@ const paramsEqual = require('params-equal').default;
 
 paramsEqual(NaN, NaN) //=> true
 
+paramsEqual(NaN, 0 / 0) //=> true
+
 paramsEqual(null, null) //=> true
 
 paramsEqual(true, true) //=> true
@@ -33,6 +35,14 @@ paramsEqual(2, 2) //=> true
 paramsEqual(2, 4) //=> false
 
 paramsEqual(2, "4") //=> false
+
+paramsEqual(-0, +0) // => false
+
+paramsEqual(Infinity, Infinity) // => true
+
+paramsEqual(Infinity, 1 / 0) // => true
+
+paramsEqual(-0, -0)) // => true
 
 paramsEqual(/a/g, /a/g) //=> true
 

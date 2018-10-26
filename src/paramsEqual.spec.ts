@@ -5,6 +5,7 @@ import paramsEqual from "./paramsEqual";
 describe("paramsEqual", () => {
   it("should work for NaN", () => {
     expect(paramsEqual(NaN, NaN)).toBeTruthy();
+    expect(paramsEqual(NaN, 0 / 0)).toBeTruthy();
   });
 
   it("should work for null", () => {
@@ -25,6 +26,10 @@ describe("paramsEqual", () => {
     expect(paramsEqual(2, 2)).toBeTruthy();
     expect(paramsEqual(2, 4)).toBeFalsy();
     expect(paramsEqual(2, "4")).toBeFalsy();
+    expect(paramsEqual(-0, +0)).toBeFalsy();
+    expect(paramsEqual(Infinity, Infinity)).toBeTruthy();
+    expect(paramsEqual(Infinity, 1 / 0)).toBeTruthy();
+    expect(paramsEqual(-0, -0)).toBeTruthy();
   });
 
   it("should work for regexp", () => {

@@ -14,7 +14,8 @@ function paramsEqual(a: any, b: any): boolean {
   /* Check for same types */
   if (paramType(a) !== paramType(b)) return false;
   /* Check primitives and object-primitives */
-  if (["boolean", "string", "number", "date", "regexp", "symbol"].indexOf(paramType(a)) > -1) return String(a) === String(b);
+  if (typeof a === "number") return Object.is(a, b);
+  if (["boolean", "string", "date", "regexp", "symbol"].indexOf(paramType(a)) > -1) return String(a) === String(b);
   /* Check functions */
   if (typeof a === "function") return toString.call(a) === toString.call(b);
   /* Check objects */
