@@ -29,12 +29,12 @@ describe("paramsEqual", () => {
     });
     it("should work for numbers", () => {
         expect(paramsEqual_1.default(2, 2)).toBeTruthy();
+        expect(paramsEqual_1.default(2, 4)).toBeFalsy();
+        expect(paramsEqual_1.default(2, "4")).toBeFalsy();
         expect(paramsEqual_1.default(-0, +0)).toBeFalsy();
         expect(paramsEqual_1.default(Infinity, Infinity)).toBeTruthy();
         expect(paramsEqual_1.default(Infinity, 1 / 0)).toBeTruthy();
         expect(paramsEqual_1.default(-0, -0)).toBeTruthy();
-        expect(paramsEqual_1.default(2, 4)).toBeFalsy();
-        expect(paramsEqual_1.default(2, "4")).toBeFalsy();
     });
     it("should work for regexp", () => {
         expect(paramsEqual_1.default(/a/g, /a/g)).toBeTruthy();
@@ -57,6 +57,8 @@ describe("paramsEqual", () => {
     });
     it("should work for arrays", () => {
         expect(paramsEqual_1.default([], [])).toBeTruthy();
+        expect(paramsEqual_1.default([2, 2, 1], [2, 1, 1])).toBeFalsy();
+        expect(paramsEqual_1.default([2, 2, 1], [2, 1, 2])).toBeTruthy();
         expect(paramsEqual_1.default([""], [])).toBeFalsy();
         expect(paramsEqual_1.default([function () { }], [function () { }])).toBeTruthy();
         expect(paramsEqual_1.default({}, [])).toBeFalsy();

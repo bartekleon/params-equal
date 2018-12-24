@@ -59,6 +59,7 @@ describe("paramsEqual", () => {
 
   it("should work for arrays", () => {
     expect(paramsEqual([], [])).toBeTruthy();
+    expect(paramsEqual([2, 2, 1], [2, 1, 1])).toBeFalsy();
     expect(paramsEqual([""], [])).toBeFalsy();
     expect(paramsEqual([function() {}], [function() {}])).toBeTruthy();
     expect(paramsEqual({}, [])).toBeFalsy();
