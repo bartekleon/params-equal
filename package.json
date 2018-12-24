@@ -16,7 +16,7 @@
     "benchmark": "^2.1.4",
     "istanbul": "^0.4.5",
     "jasmine": "^3.3.0",
-    "jasmine-ts": "^0.2.1",
+    "jasmine-ts": "^0.3.0",
     "nyc": "^13.1.0",
     "rimraf": "^2.6.2",
     "ts-node": "^7.0.1",
