@@ -1,95 +1,84 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 /* tslint:disable */
-require("jasmine");
+const chai_1 = require("chai");
 const paramsEqual_1 = require("./paramsEqual");
 describe("paramsEqual", () => {
     it("should work for NaN", () => {
-        expect(paramsEqual_1.default(NaN, NaN)).toBeTruthy();
-        expect(paramsEqual_1.default(NaN, 0 / 0)).toBeTruthy();
+        chai_1.expect(paramsEqual_1.default(NaN, NaN)).to.be.true;
+        chai_1.expect(paramsEqual_1.default(NaN, 0 / 0)).to.be.true;
     });
     it("should work for null", () => {
-        expect(paramsEqual_1.default(null, null)).toBeTruthy();
+        chai_1.expect(paramsEqual_1.default(null, null)).to.be.true;
     });
     it("should work for booleans", () => {
-        expect(paramsEqual_1.default(true, true)).toBeTruthy();
-        expect(paramsEqual_1.default(true, false)).toBeFalsy();
+        chai_1.expect(paramsEqual_1.default(true, true)).to.be.true;
+        chai_1.expect(paramsEqual_1.default(true, false)).to.be.false;
     });
     it("should work for strings", () => {
-        expect(paramsEqual_1.default("", "")).toBeTruthy();
-        expect(paramsEqual_1.default("", "hi")).toBeFalsy();
+        chai_1.expect(paramsEqual_1.default("", "")).to.be.true;
+        chai_1.expect(paramsEqual_1.default("", "hi")).to.be.false;
     });
     it("should work for numbers", () => {
-        expect(paramsEqual_1.default(2, 2)).toBeTruthy();
-        expect(paramsEqual_1.default(2, 4)).toBeFalsy();
-        expect(paramsEqual_1.default(2, "4")).toBeFalsy();
-        expect(paramsEqual_1.default(-0, +0)).toBeFalsy();
-        expect(paramsEqual_1.default(Infinity, Infinity)).toBeTruthy();
-        expect(paramsEqual_1.default(Infinity, 1 / 0)).toBeTruthy();
-        expect(paramsEqual_1.default(-0, -0)).toBeTruthy();
+        chai_1.expect(paramsEqual_1.default(2, 2)).to.be.true;
+        chai_1.expect(paramsEqual_1.default(2, 4)).to.be.false;
+        chai_1.expect(paramsEqual_1.default(2, "4")).to.be.false;
+        chai_1.expect(paramsEqual_1.default(-0, +0)).to.be.false;
+        chai_1.expect(paramsEqual_1.default(Infinity, Infinity)).to.be.true;
+        chai_1.expect(paramsEqual_1.default(Infinity, 1 / 0)).to.be.true;
+        chai_1.expect(paramsEqual_1.default(-0, -0)).to.be.true;
     });
     it("should work for regexp", () => {
-        expect(paramsEqual_1.default(/a/g, /a/g)).toBeTruthy();
-        expect(paramsEqual_1.default(/a/u, /a/g)).toBeFalsy();
-        expect(paramsEqual_1.default(/b/g, /a/g)).toBeFalsy();
-        expect(paramsEqual_1.default(/a/g, new RegExp('a', 'g'))).toBeTruthy();
+        chai_1.expect(paramsEqual_1.default(/a/g, /a/g)).to.be.true;
+        chai_1.expect(paramsEqual_1.default(/a/u, /a/g)).to.be.false;
+        chai_1.expect(paramsEqual_1.default(/b/g, /a/g)).to.be.false;
+        chai_1.expect(paramsEqual_1.default(/a/g, new RegExp('a', 'g'))).to.be.true;
     });
     it("should work for symbols", () => {
-        expect(paramsEqual_1.default(Symbol(12), Symbol(12))).toBeTruthy();
-        expect(paramsEqual_1.default(Symbol(12), Symbol("12"))).toBeTruthy();
-        expect(paramsEqual_1.default(Symbol(12), Symbol(6))).toBeFalsy();
+        chai_1.expect(paramsEqual_1.default(Symbol(12), Symbol(12))).to.be.true;
+        chai_1.expect(paramsEqual_1.default(Symbol(12), Symbol("12"))).to.be.true;
+        chai_1.expect(paramsEqual_1.default(Symbol(12), Symbol(6))).to.be.false;
     });
     it("should work for `new` elements", () => {
-        expect(paramsEqual_1.default(new Boolean(true), new Boolean(true))).toBeTruthy();
-        expect(paramsEqual_1.default(new Boolean(true), new Boolean(false))).toBeFalsy();
-        expect(paramsEqual_1.default(new String("true"), new String("true"))).toBeTruthy();
-        expect(paramsEqual_1.default(new String("true"), new String("false"))).toBeFalsy();
-        expect(paramsEqual_1.default(new Object(), new Object())).toBeTruthy();
-        expect(paramsEqual_1.default(new Object("true"), new Object("false"))).toBeFalsy();
+        chai_1.expect(paramsEqual_1.default(new Boolean(true), new Boolean(true))).to.be.true;
+        chai_1.expect(paramsEqual_1.default(new Boolean(true), new Boolean(false))).to.be.false;
+        chai_1.expect(paramsEqual_1.default(new String("true"), new String("true"))).to.be.true;
+        chai_1.expect(paramsEqual_1.default(new String("true"), new String("false"))).to.be.false;
+        chai_1.expect(paramsEqual_1.default(new Object(), new Object())).to.be.true;
+        chai_1.expect(paramsEqual_1.default(new Object("true"), new Object("false"))).to.be.false;
     });
     it("should work for arrays", () => {
-        expect(paramsEqual_1.default([], [])).toBeTruthy();
-        expect(paramsEqual_1.default([2, 2, 1], [2, 1, 1])).toBeFalsy();
-        expect(paramsEqual_1.default([2, 2, 1], [2, 1, 2])).toBeTruthy();
-        expect(paramsEqual_1.default([""], [])).toBeFalsy();
-        expect(paramsEqual_1.default([function () { }], [function () { }])).toBeTruthy();
-        expect(paramsEqual_1.default({}, [])).toBeFalsy();
-        expect(paramsEqual_1.default([{ hi: "hello" }], { hi: "hello" })).toBeFalsy();
+        chai_1.expect(paramsEqual_1.default([], [])).to.be.true;
+        chai_1.expect(paramsEqual_1.default([2, 2, 1], [2, 1, 1])).to.be.false;
+        chai_1.expect(paramsEqual_1.default([""], [])).to.be.false;
+        chai_1.expect(paramsEqual_1.default([new Function()], [new Function()])).to.be.true;
+        chai_1.expect(paramsEqual_1.default({}, [])).to.be.false;
+        chai_1.expect(paramsEqual_1.default([{ hi: "hello" }], { hi: "hello" })).to.be.false;
     });
     it("should work for functions", () => {
-        expect(paramsEqual_1.default(function () { }, function () { })).toBeTruthy();
-        expect(paramsEqual_1.default(function hi() { }, function () { })).toBeFalsy();
-        expect(paramsEqual_1.default(function () { }, () => { })).toBeFalsy();
-        expect(paramsEqual_1.default(function () { }, function () { return false; })).toBeFalsy();
-        expect(paramsEqual_1.default(function () {
-            return __awaiter(this, void 0, void 0, function* () { });
-        }, function () { })).toBeFalsy();
+        chai_1.expect(paramsEqual_1.default(new Function(), new Function())).to.be.true;
+        chai_1.expect(paramsEqual_1.default(function hi() { }, function () { })).to.be.false;
+        chai_1.expect(paramsEqual_1.default(function () { }, () => { })).to.be.false;
+        chai_1.expect(paramsEqual_1.default(function () { }, function () { return false; })).to.be.false;
+        chai_1.expect(paramsEqual_1.default(async function () { }, function () { })).to.be.false;
     });
     it("should work for dates", () => {
         const time1 = new Date(20532795);
         const time2 = new Date(12543745);
-        expect(paramsEqual_1.default(time1, time1)).toBeTruthy();
-        expect(paramsEqual_1.default(time1, time2)).toBeFalsy();
+        chai_1.expect(paramsEqual_1.default(time1, time1)).to.be.true;
+        chai_1.expect(paramsEqual_1.default(time1, time2)).to.be.false;
     });
     it("should work for objects", () => {
-        expect(paramsEqual_1.default({}, {})).toBeTruthy();
-        expect(paramsEqual_1.default({}, { hi: "hello" })).toBeFalsy();
-        expect(paramsEqual_1.default({ hi: "hello" }, { hi: "hello" })).toBeTruthy();
-        expect(paramsEqual_1.default({ hi: "hello" }, {})).toBeFalsy();
-        expect(paramsEqual_1.default([{ hi: "hello" }, "hi"], [{ hi: "hello" }, "hi"])).toBeTruthy();
-        expect(paramsEqual_1.default([{ hi: "hello" }], [{ hi: "hello" }, "hi"])).toBeFalsy();
-        expect(paramsEqual_1.default({ hi: "hello" }, { hi: {} })).toBeFalsy();
-        expect(paramsEqual_1.default({ hi: "hello" }, { hi: { hello: "hi" } })).toBeFalsy();
-        expect(paramsEqual_1.default({ hi: {} }, { hi: { hello: "hi" } })).toBeFalsy();
-        expect(paramsEqual_1.default({ hi: { hello: 1 } }, { hi: { hello: "1" } })).toBeFalsy();
+        chai_1.expect(paramsEqual_1.default({}, {})).to.be.true;
+        chai_1.expect(paramsEqual_1.default({}, { hi: "hello" })).to.be.false;
+        chai_1.expect(paramsEqual_1.default({ hi: "hello" }, { hi: "hello" })).to.be.true;
+        chai_1.expect(paramsEqual_1.default({ hi: "hello" }, {})).to.be.false;
+        chai_1.expect(paramsEqual_1.default([{ hi: "hello" }, "hi"], [{ hi: "hello" }, "hi"])).to.be.true;
+        chai_1.expect(paramsEqual_1.default([{ hi: "hello" }], [{ hi: "hello" }, "hi"])).to.be.false;
+        chai_1.expect(paramsEqual_1.default({ hi: "hello" }, { hi: {} })).to.be.false;
+        chai_1.expect(paramsEqual_1.default({ hi: "hello" }, { hi: { hello: "hi" } })).to.be.false;
+        chai_1.expect(paramsEqual_1.default({ hi: {} }, { hi: { hello: "hi" } })).to.be.false;
+        chai_1.expect(paramsEqual_1.default({ hi: { hello: 1 } }, { hi: { hello: "1" } })).to.be.false;
     });
     it("should works with setters and getters", () => {
         const log = [];
@@ -118,13 +107,13 @@ describe("paramsEqual", () => {
             log: [],
             yo: "this is set"
         };
-        expect(paramsEqual_1.default(setterGetter, normal)).toBeFalsy();
-        expect(paramsEqual_1.default(normal, setterGetter)).toBeFalsy();
-        expect(paramsEqual_1.default(setterGetter, setterGetter)).toBeTruthy();
-        expect(paramsEqual_1.default(onlySetter, setterGetter)).toBeFalsy();
-        expect(paramsEqual_1.default(onlyGetter, setterGetter)).toBeFalsy();
-        expect(paramsEqual_1.default(onlySetter, normal)).toBeFalsy();
-        expect(paramsEqual_1.default(onlyGetter, normal)).toBeFalsy();
+        chai_1.expect(paramsEqual_1.default(setterGetter, normal)).to.be.false;
+        chai_1.expect(paramsEqual_1.default(normal, setterGetter)).to.be.false;
+        chai_1.expect(paramsEqual_1.default(setterGetter, setterGetter)).to.be.true;
+        chai_1.expect(paramsEqual_1.default(onlySetter, setterGetter)).to.be.false;
+        chai_1.expect(paramsEqual_1.default(onlyGetter, setterGetter)).to.be.false;
+        chai_1.expect(paramsEqual_1.default(onlySetter, normal)).to.be.false;
+        chai_1.expect(paramsEqual_1.default(onlyGetter, normal)).to.be.false;
     });
     it("should throw error if there is infinite nested prop", () => {
         const a = { hi: "hello", s: {} };
@@ -133,7 +122,7 @@ describe("paramsEqual", () => {
         c.c = c;
         a.s = a;
         b.s = c;
-        expect(() => paramsEqual_1.default(a, b)).toThrow(new RangeError("You are not allowed to create infinite nest"));
+        chai_1.expect(() => paramsEqual_1.default(a, b)).to.throw(RangeError, "You are not allowed to create infinite nest");
     });
 });
 //# sourceMappingURL=paramsEqual.spec.js.map
