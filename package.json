@@ -11,9 +11,11 @@
     "test": "npm run build && nyc --include src/**/*.js --reporter=html --report-dir=coverage --check-coverage mocha \" src/**/*.spec.js\""
   },
   "devDependencies": {
+    "@types/benchmark": "^1.0.31",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.18",
+    "benchmark": "^2.1.4",
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
