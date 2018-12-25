@@ -4,6 +4,7 @@
   "description": "Checks if two elements are really equal",
   "main": "src/paramsEqual.js",
   "scripts": {
+    "benchmark": "ts-node benchmark.ts",
     "clean": "rimraf \"+(test|src)/**/*+(.d.ts|.js|.map)\" .nyc_output coverage",
     "prebuild": "npm run clean && tslint -p tsconfig.json",
     "build": "tsc -p .",
