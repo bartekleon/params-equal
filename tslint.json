@@ -11,7 +11,7 @@
     "cyclomatic-complexity": [true, 30],
     "forin": false,
     "interface-name": false,
-    "linebreak-style": [true, "CRLF"],
+    "linebreak-style": false,
     "match-default-export-name": false,
     "max-line-length": false,
     "member-access": [true, "check-accessor", "check-parameter-property"],
