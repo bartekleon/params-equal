@@ -29,7 +29,7 @@ const paramsEqual = (a: any, b: any): boolean => {
   if (a.length !== b.length) {
     return false;
   }
-  for (const k in a) {
+  for (const k of Object.keys(a)) {
     const propsA = Object.getOwnPropertyDescriptor(a, k) || {};
     const propsB = Object.getOwnPropertyDescriptor(b, k) || {};
 
