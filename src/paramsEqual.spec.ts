@@ -93,6 +93,16 @@ describe("paramsEqual", () => {
     expect(paramsEqual({ hi: { hello: 1 } }, { hi: { hello: "1" } })).to.be.false;
   });
 
+  it("should not mutate objects", () => {  
+    const a = [{ hi: "hello" }, "hi"];
+    const b = [{ hi: "hello" }, "hi"];
+    paramsEqual(a, b);
+
+    expect(a.length).to.be.eq(2);
+    expect(a[0]).not.to.be.undefined;
+    expect(b.length).to.be.eq(2);
+  })
+
   it("should works with setters and getters", () => {
     const log: any[] = [];
 

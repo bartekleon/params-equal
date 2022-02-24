@@ -29,13 +29,21 @@ const paramsEqual = (a: any, b: any): boolean => {
   if (a.length !== b.length) {
     return false;
   }
-  for (const k of Object.keys(a)) {
-    const propsA = Object.getOwnPropertyDescriptor(a, k) || {};
-    const propsB = Object.getOwnPropertyDescriptor(b, k) || {};
 
+  const keysA = Object.keys(a);
+  const keysB = Object.keys(b);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  for (const k of keysA) {
     if (a[k] === a) {
       throw new RangeError('You are not allowed to create infinite nest');
     }
+
+    const propsA = Object.getOwnPropertyDescriptor(a, k) || {};
+    const propsB = Object.getOwnPropertyDescriptor(b, k) || {};
 
     if (!paramsEqual(propsA.set, propsB.set) || !paramsEqual(propsA.get, propsB.get)) {
       return false;
@@ -43,11 +51,9 @@ const paramsEqual = (a: any, b: any): boolean => {
     if (!b.hasOwnProperty(k) || !paramsEqual(a[k], b[k])) {
       return false;
     }
-    delete a[k];
-    delete b[k];
   }
 
-  return Object.keys(b).length === 0;
+  return true;
 };
 
 export default paramsEqual;
